@@ -31,12 +31,12 @@ parser.add_argument('--nms_thres', type=float, default=0.4, help='iou thresshold
 parser.add_argument('--batch_size', type=int, default=1, help='size of the batches')
 parser.add_argument('--n_cpu', type=int, default=8, help='number of cpu threads to use during batch generation')
 parser.add_argument('--img_size', type=int, default=416, help='size of each image dimension')
-parser.add_argument('--use_cuda', type=bool, default=True, help='whether to use cuda if available')
+parser.add_argument('--no_cuda', type=bool, default=False, action='store_true', help="don't use CUDA even if available")
 opt = parser.parse_args()
 print('Config:')
 print(opt)
 
-cuda = torch.cuda.is_available() and opt.use_cuda
+cuda = torch.cuda.is_available() and not opt.no_cuda
 
 os.makedirs('output', exist_ok=True)
 
@@ -86,8 +86,8 @@ for batch_i, (img_paths, input_imgs) in enumerate(dataloader):
     img_detections.extend(detections)
 
 # Bounding-box colors
-#cmap = plt.get_cmap('tab20b')
-cmap = plt.get_cmap('Vega20b')
+cmap = plt.get_cmap('tab20b')
+#cmap = plt.get_cmap('Vega20b')  # 'Vega20b' is not recognized as one of the available options?
 colors = [cmap(i) for i in np.linspace(0, 1, 20)]
 
 print ('\nSaving images:')

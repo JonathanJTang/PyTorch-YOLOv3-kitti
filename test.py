@@ -30,12 +30,12 @@ parser.add_argument("--conf_thres", type=float, default=0.5, help="object confid
 parser.add_argument("--nms_thres", type=float, default=0.45, help="iou thresshold for non-maximum suppression")
 parser.add_argument("--n_cpu", type=int, default=0, help="number of cpu threads to use during batch generation")
 parser.add_argument("--img_size", type=int, default=416, help="size of each image dimension")
-parser.add_argument("--use_cuda", type=bool, default=True, help="whether to use cuda if available")
+parser.add_argument('--no_cuda', type=bool, default=False, action='store_true', help="don't use CUDA even if available")
 
 opt = parser.parse_args()
 print(opt)
 
-cuda = torch.cuda.is_available() and opt.use_cuda
+cuda = torch.cuda.is_available() and not opt.no_cuda
 
 # Get data configuration
 data_config = parse_data_config(opt.data_config_path)
