@@ -33,7 +33,7 @@ parser.add_argument("--n_cpu", type=int, default=16, help="number of cpu threads
 parser.add_argument("--img_size", type=int, default=416, help="size of each image dimension")
 parser.add_argument("--checkpoint_interval", type=int, default=2, help="interval between saving model weights")
 parser.add_argument("--checkpoint_dir", type=str, default="checkpoints", help="directory where model checkpoints are saved")
-parser.add_argument('--no_cuda', type=bool, default=False, action='store_true', help="don't use CUDA even if available")
+parser.add_argument('--no_cuda', action='store_true', help="don't use CUDA even if available")  #default=False
 
 opt = parser.parse_args()
 print(opt)
